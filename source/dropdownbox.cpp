@@ -63,7 +63,7 @@ DropdownBox::~DropdownBox()
 void DropdownBox::timerEvent(QTimerEvent *event)
 {
     QDateTime current_date_time = QDateTime::currentDateTime();
-    QString current_date = current_date_time.toString("hh:mm::ss yyyy-MM-dd dddd");
+    QString current_date = current_date_time.toString("hh:mm:ss yyyy-MM-dd dddd");
     ui->label_5->setText(current_date);
 }
 

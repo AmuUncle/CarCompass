@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "global.h"
 
+class MainWnd;
 class DropdownBox;
 class CarCompass : public QWidget
 {
@@ -14,18 +15,14 @@ public:
     ~CarCompass();
 
 private:
-    void CreateAllChildWnd();
-    void InitCtrl();
-    void InitSolts();
-    void Relayout();
+    GLOBAL_FUNC
     void ChangePage();
 
     void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
     QStackedWidget *m_pStackedWidget;
-
-    QWidget *m_pWidgetMain;
+    MainWnd *m_pMainWnd;
     DropdownBox *m_pDropdownBox;
     EMainTabTitle m_eMainTabTitle;
 };

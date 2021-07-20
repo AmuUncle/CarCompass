@@ -19,10 +19,7 @@ private:
     void timerEvent(QTimerEvent *event);
 
 private:
-    void CreateAllChildWnd();
-    void InitCtrl();
-    void InitSolts();
-    void Relayout();
+    GLOBAL_FUNC
 
 private slots:
 

@@ -13,6 +13,15 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+#define GLOBAL_FUNC \
+        void CreateAllChildWnd(); \
+        void InitCtrl(); \
+        void InitSolts(); \
+        void Relayout();
+
+#define NEW_OBJECT(pObj, TYPE) \
+    if (NULL == pObj) { pObj = new TYPE(this); }
+
 enum EMainTabTitle
 {
     TABTITLE_MAIN = 0,       // 消息会话

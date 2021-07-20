@@ -20,14 +20,16 @@ SOURCES += source/main.cpp\
     source/basebutton.cpp \
     source/voicecontrolpane.cpp \
     source/dropdownbox.cpp \
-    source/basewidget.cpp
+    source/basewidget.cpp \
+    source/mainwnd.cpp
 
 HEADERS  += include/carcompass.h \
     include/basebutton.h \
     include/global.h \
     include/voicecontrolpane.h \
     include/dropdownbox.h \
-    include/basewidget.h
+    include/basewidget.h \
+    include/mainwnd.h
 
 RESOURCES += \
     res/res.qrc
