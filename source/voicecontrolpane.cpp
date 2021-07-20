@@ -137,6 +137,9 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
 
     if (QPropertyAnimation::Running == m_pAnimationOpacity->state())
     {
+        float RotationText = this->property("RotationText").toFloat();
+        RotationText = qMax(RotationText, (float)0.0);
+
         painter.save();
         QFont font2 = painter.font();
         font2.setBold(true);
@@ -144,30 +147,31 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
         font2.setPixelSize(26);
         painter.setFont(font2);
         QColor colorText("#4E555E");
+        colorText.setAlpha(255*RotationText);
         painter.setPen(colorText);
         painter.drawText(120, 130, tr("去机场"));
 
         font2.setPixelSize(16);
         painter.setFont(font2);
-        colorText.setAlpha(100);
+        colorText.setAlpha(100*RotationText);
         painter.setPen(colorText);
         painter.drawText(20, 135, tr("打开空调"));
 
         font2.setPixelSize(36);
         painter.setFont(font2);
-        colorText.setAlpha(200);
+        colorText.setAlpha(200*RotationText);
         painter.setPen(colorText);
         painter.drawText(30, 100, tr("来点音乐"));
 
         font2.setPixelSize(26);
         painter.setFont(font2);
-        colorText.setAlpha(200);
+        colorText.setAlpha(200*RotationText);
         painter.setPen(colorText);
         painter.drawText(5, 300, tr("今天天气怎么样?"));
 
         font2.setPixelSize(10);
         painter.setFont(font2);
-        colorText.setAlpha(100);
+        colorText.setAlpha(100*RotationText);
         painter.setPen(colorText);
         painter.drawText(110, 280, tr("启动辅助驾驶"));
 
@@ -218,6 +222,7 @@ void VoiceControlPane::mousePressEvent(QMouseEvent *event)
     if (m_regVoice.contains(event->pos()))
     {
         m_pAnimationOpacity->start();
+        m_pAnimationOpacity1->start();
     }
 
     QWidget::mousePressEvent(event);
@@ -267,6 +272,15 @@ void VoiceControlPane::InitCtrl()
     m_pAnimationOpacity->setLoopCount(15);
     connect(m_pAnimationOpacity, SIGNAL(valueChanged(const QVariant&)), this, SLOT(update()));
     connect(m_pAnimationOpacity, SIGNAL(finished()), this, SLOT(update()));
+
+    this->setProperty("RotationText", 1.0);
+    m_pAnimationOpacity1 = new QPropertyAnimation(this, "RotationText");
+    m_pAnimationOpacity1->setDuration(1000);
+    m_pAnimationOpacity1->setEasingCurve(QEasingCurve::Linear);
+    m_pAnimationOpacity1->setStartValue(0.0);
+    m_pAnimationOpacity1->setEndValue(1.0);
+    connect(m_pAnimationOpacity1, SIGNAL(valueChanged(const QVariant&)), this, SLOT(update()));
+    connect(m_pAnimationOpacity1, SIGNAL(finished()), this, SLOT(update()));
 }
 
 void VoiceControlPane::InitSolts()

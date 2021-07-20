@@ -89,12 +89,11 @@ void BaseButton::paintEvent(QPaintEvent *event)
         QRect rcShadow(rect());
         rcShadow.setTop(rcShadow.center().y() + (m_nIconSize / 2 - 15));
         rcShadow.setBottom(rcShadow.top() + 20);
-        QRadialGradient batteryGradient(rcShadow.center(), 20, rcShadow.center());
-        batteryGradient.setColorAt(0.0, QColor(QString("#1B1C20")));
-        batteryGradient.setColorAt(1.0, colorBg);
-        painter.setPen(Qt::NoPen);
-        painter.setBrush(batteryGradient);
-        painter.drawEllipse(rcShadow.center(), 30, 5);
+
+        QRect rcShadowPic(rcShadow.center().x() - 25, rcShadow.center().y() - 8, 50, 16);
+        QPixmap backPixmap = QPixmap(":/img/shadow.png");
+        painter.drawPixmap(rcShadowPic, backPixmap.scaled(rcShadowPic.size()));
+
         painter.restore();
     }
 

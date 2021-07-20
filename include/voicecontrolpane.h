@@ -40,6 +40,7 @@ private:
     int m_nVoiceHeight;
 
     QPropertyAnimation *m_pAnimationOpacity;
+    QPropertyAnimation *m_pAnimationOpacity1;
     QPushButton *m_btnCfg;
 };
 

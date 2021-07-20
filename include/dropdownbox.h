@@ -15,6 +15,9 @@ public:
     explicit DropdownBox(QWidget *parent = 0);
     ~DropdownBox();
 
+private:
+    void timerEvent(QTimerEvent *event);
+
 signals:
     void SignalClose();
 

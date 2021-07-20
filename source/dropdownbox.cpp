@@ -51,11 +51,20 @@ DropdownBox::DropdownBox(QWidget *parent) :
 
     ui->horizontalSlider->setValue(50);
     ui->horizontalSlider_2->setValue(80);
+
+    startTimer(1000);
 }
 
 DropdownBox::~DropdownBox()
 {
     delete ui;
+}
+
+void DropdownBox::timerEvent(QTimerEvent *event)
+{
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString current_date = current_date_time.toString("hh:mm::ss yyyy-MM-dd dddd");
+    ui->label_5->setText(current_date);
 }
 
 void DropdownBox::on_m_btnClose_clicked()
