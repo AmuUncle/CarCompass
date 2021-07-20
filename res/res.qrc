@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/ttf">
+        <file>CarCompass.css</file>
+        <file>iconfont.ttf</file>
+        <file>CarCompass.ico</file>
+    </qresource>
+</RCC>
