@@ -24,6 +24,8 @@ private:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
+signals:
+    void SignalClicked();
 
 private:
     QChar m_iconCode;

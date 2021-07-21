@@ -10,7 +10,7 @@ class BaseWidget : public QWidget
 public:
     explicit BaseWidget(QWidget *parent = 0);
 
-private:
+protected:
     void paintEvent(QPaintEvent* event);//重写绘画事件
 };
 

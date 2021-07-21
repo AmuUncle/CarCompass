@@ -15,6 +15,12 @@ public:
 private:
     GLOBAL_FUNC
 
+private slots:
+
+
+signals:
+    void SignalPageChange(EMainTabTitle eMainTabTitle);
+
 private:
     VoiceControlPane *m_pVoiceControlPane;
     BaseButton *m_btn1;

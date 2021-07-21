@@ -239,22 +239,22 @@ border-radius: 4px;
 {
     background:none;
     border-style:none;
-    color:#B9CCE4;
+    color:#D7D7D7;
 }
 
 .IconfontBtn:hover
 {
-    color:#FFFFFF;
+    color:#B9CCE4;
 }
 
 .IconfontBtn:pressed
 {
-    color:#FFFFFF;
+    color:#B9CCE4;
 }
 
 .IconfontBtn:checked
 {
-    color:#FFFFFF;
+    color:#B9CCE4;
 }
 
 .IconfontBtn:disabled
@@ -295,12 +295,94 @@ QWidget[form="mainwnd"]
 	background:#0D1015;;
 }
 
-QWidget[form="nav"]
+
+QLabel
 {
-    background:#366CB3;
+	color:#D7D7D7;
+	font-weight: bold;
 }
 
-QWidget[form="userdetail"]
+QPushButton[return="true"]
+{
+    background:none;
+    border-style:none;
+    color:#D7D7D7;
+	font-size:14px;
+	font-weight: bold;
+}
+
+QPushButton[return="true"]:hover
+{
+    color:#5A5D6C;
+}
+
+QPushButton[return="true"]:pressed
+{
+    color:#5A5D6C;
+}
+
+QPushButton[return="true"]:disabled
+{
+    color:#D7D7D7;
+}
+
+QPushButton[HangUp="true"]
+{
+    background:none;
+    border-style:none;
+    color:#FF3715;
+}
+
+QPushButton[HangUp="true"]:hover
+{
+    color:#FF5015;
+}
+
+QPushButton[HangUp="true"]:pressed
+{
+    color:#FF5015;
+}
+
+QPushButton[HangUp="true"]:disabled
+{
+    color:#D7D7D7;
+}
+
+QPushButton[Answer="true"]
+{
+    background:none;
+    border-style:none;
+    color:#1FBE09;
+}
+
+QPushButton[Answer="true"]:hover
+{
+    color:#3FBE09;
+}
+
+QPushButton[Answer="true"]:pressed
+{
+    color:#3FBE09;
+}
+
+QPushButton[Answer="true"]:disabled
+{
+    color:#1FBE09;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+QWidget[form="IncomingCall"]
 {
 	border: 1px solid #366CB3;
     background:#FFFFFF;

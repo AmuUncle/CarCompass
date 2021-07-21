@@ -6,6 +6,9 @@
 
 class MainWnd;
 class DropdownBox;
+class IncomingCall;
+class MusicPane;
+class CompassPane;
 class CarCompass : public QWidget
 {
     Q_OBJECT
@@ -24,6 +27,9 @@ private:
     QStackedWidget *m_pStackedWidget;
     MainWnd *m_pMainWnd;
     DropdownBox *m_pDropdownBox;
+    IncomingCall *m_pIncomingCall;
+    MusicPane *m_pMusicPane;
+    CompassPane *m_pCompassPane;
     EMainTabTitle m_eMainTabTitle;
 };
 

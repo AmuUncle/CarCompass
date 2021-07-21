@@ -147,5 +147,6 @@ void BaseButton::mouseReleaseEvent(QMouseEvent *event)
     m_bPress = false;
     update();
 
+    emit SignalClicked();
     QWidget::mouseReleaseEvent(event);
 }

@@ -19,6 +19,12 @@
         void InitSolts(); \
         void Relayout();
 
+#define GLOBAL_FUNC_RUN \
+        CreateAllChildWnd(); \
+        InitCtrl(); \
+        InitSolts(); \
+        Relayout();
+
 #define NEW_OBJECT(pObj, TYPE) \
     if (NULL == pObj) { pObj = new TYPE(this); }
 
@@ -26,9 +32,9 @@ enum EMainTabTitle
 {
     TABTITLE_MAIN = 0,       // 消息会话
     TABTITLE_DROPBOX = 1,      // 通讯录
-    TABTITLE_CALENDAR = 2,      // 日程
-    TABTITLE_WORKSPACE = 3,       // 工作台
-    TABTITLE_WEDOC = 4,      // 微文档
+    TABTITLE_CALL = 2,      // 日程
+    TABTITLE_MUSIC = 3,       // 工作台
+    TABTITLE_COMPASS = 4,      // 微文档
     TABTITLE_WEDRIVE = 5,      // 微盘
     TABTITLE_MEETING = 6,      // 会议
 };

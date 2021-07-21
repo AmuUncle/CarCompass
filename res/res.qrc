@@ -6,5 +6,7 @@
     </qresource>
     <qresource prefix="/img">
         <file>shadow.png</file>
+        <file>cd.png</file>
+        <file>compass.png</file>
     </qresource>
 </RCC>

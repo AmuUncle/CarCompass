@@ -45,7 +45,22 @@ void MainWnd::InitCtrl()
 
 void MainWnd::InitSolts()
 {
+    QSignalMapper *pSignalMapperPushed = new QSignalMapper(this);
+    pSignalMapperPushed->setMapping(m_btn1, TABTITLE_CALL);
+    pSignalMapperPushed->setMapping(m_btn2, TABTITLE_MUSIC);
+    pSignalMapperPushed->setMapping(m_btn3, TABTITLE_COMPASS);
+    pSignalMapperPushed->setMapping(m_btn4, TABTITLE_WEDRIVE);
 
+    QList<BaseButton *> listBtns = findChildren<BaseButton *>();
+    foreach (BaseButton *btn, listBtns)
+    {
+        connect(btn, SIGNAL(SignalClicked()), pSignalMapperPushed, SLOT(map()));
+    }
+
+    connect(pSignalMapperPushed, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), [=](int value)
+    {
+        emit SignalPageChange((EMainTabTitle)value);
+    });
 }
 
 void MainWnd::Relayout()
