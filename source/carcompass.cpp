@@ -13,7 +13,8 @@
 #include "liquidplot.h"
 #include "appinit.h"
 #include "standbypane.h"
-
+#include "moviepicwidget.h"
+#include "systemcfg.h"
 
 CarCompass::CarCompass(QWidget *parent)
     : QWidget(parent)
@@ -27,6 +28,9 @@ CarCompass::CarCompass(QWidget *parent)
     m_pMusicPane = NULL;
     m_pCompassPane = NULL;
     m_pStandbyPane = NULL;
+    m_pMoviePicWidget = NULL;
+    m_pAnimationOpacity = NULL;
+    m_pSystemCfg = NULL;
 
     m_eMainTabTitle = TABTITLE_MAIN;
 
@@ -41,6 +45,7 @@ CarCompass::CarCompass(QWidget *parent)
     InitSolts();
     Relayout();
     ChangePage();
+    RunLoading();
 }
 
 CarCompass::~CarCompass()
@@ -62,6 +67,8 @@ void CarCompass::CreateAllChildWnd()
     NEW_OBJECT(m_pLiquidPlot, LiquidPlot);
     NEW_OBJECT(m_pLodingTimer, QTimer);
     NEW_OBJECT(m_pStandbyPane, StandbyPane);
+    NEW_OBJECT(m_pMoviePicWidget, MoviePicWidget);
+    NEW_OBJECT(m_pSystemCfg, SystemCfg);
 }
 
 void CarCompass::InitCtrl()
@@ -71,7 +78,7 @@ void CarCompass::InitCtrl()
     m_pLiquidPlot->SetPlotType(LiquidPlot::PLOTTYPE_RECTANGLE);
     m_pLiquidPlot->SetSpeed(50);
     m_pLiquidPlot->SetPercent(0);
-    m_pLodingTimer->start(20);
+    m_pLiquidPlot->hide();
 
     m_pStackedWidget->insertWidget(TABTITLE_MAIN, m_pMainWnd);
     m_pStackedWidget->insertWidget(TABTITLE_DROPBOX, m_pDropdownBox);
@@ -79,6 +86,7 @@ void CarCompass::InitCtrl()
     m_pStackedWidget->insertWidget(TABTITLE_MUSIC, m_pMusicPane);
     m_pStackedWidget->insertWidget(TABTITLE_COMPASS, m_pCompassPane);
     m_pStackedWidget->insertWidget(TABTITLE_STANDBY, m_pStandbyPane);
+    m_pStackedWidget->insertWidget(TABTITLE_SYSCFG, m_pSystemCfg);
 }
 
 void CarCompass::InitSolts()
@@ -131,6 +139,12 @@ void CarCompass::InitSolts()
         ChangePage();
     });
 
+    connect(m_pSystemCfg, &SystemCfg::SignalClose, [=]()
+    {
+        m_eMainTabTitle = TABTITLE_MAIN;
+        ChangePage();
+    });
+
     connect(AppInit::Instance(), &AppInit::SignalNoUserOperation, [=]()
     {
         if (TABTITLE_STANDBY == m_eMainTabTitle)
@@ -143,8 +157,10 @@ void CarCompass::InitSolts()
 
 void CarCompass::Relayout()
 {
+
     QVBoxLayout *layoutMain = new QVBoxLayout(this);
     layoutMain->addWidget(m_pLiquidPlot);
+    layoutMain->addWidget(m_pMoviePicWidget);
     layoutMain->addWidget(m_pStackedWidget);
     layoutMain->setMargin(0);
 
@@ -154,6 +170,81 @@ void CarCompass::Relayout()
 void CarCompass::ChangePage()
 {
     m_pStackedWidget->setCurrentIndex(m_eMainTabTitle);
+}
+
+//排列判断
+bool compareFileName(const QString &file1, const QString &file2)
+{
+    int nIndex1 = 0;
+    int nIndex2 = 0;
+
+    if (file1.split("(").size() > 1)
+    {
+        QString name = file1.split("(").at(1);
+        nIndex1 = atoi(name.toStdString().c_str());
+    }
+
+    if (file2.split("(").size() > 1)
+    {
+        QString name = file2.split("(").at(1);
+        nIndex2 = atoi(name.toStdString().c_str());
+    }
+
+    if (nIndex1 < nIndex2)
+        return true;
+
+    return false;
+}
+
+void CarCompass::RunLoading()
+{
+    QString strRoot = QCoreApplication::applicationDirPath();
+    QList<QPixmap> picList;
+
+    QDir dir(QString("%1\\screen").arg(strRoot));
+    QStringList nameFilters;
+    nameFilters  << "*.png";
+    QStringList files = dir.entryList(nameFilters, QDir::Files|QDir::Readable, QDir::Name);
+
+    qSort(files.begin(), files.end(), compareFileName);
+
+    foreach (QString file, files)
+    {
+       picList << QPixmap(QString("%1\\screen\\%2").arg(strRoot).arg(file));
+    }
+
+    m_pMoviePicWidget->SetPicList(picList);
+    m_pMoviePicWidget->Start(50);
+    m_pMoviePicWidget->show();
+
+    QTimer::singleShot(50 * picList.size(), [=]()
+    {
+        this->setProperty("transparency", 0.0);
+        m_pAnimationOpacity = new QPropertyAnimation(this, "transparency");
+        m_pAnimationOpacity->setDuration(800);
+        m_pAnimationOpacity->setEasingCurve(QEasingCurve::InQuart);
+        m_pAnimationOpacity->setStartValue(0);
+        m_pAnimationOpacity->setEndValue(m_pMoviePicWidget->height());
+
+        connect(m_pAnimationOpacity, &QPropertyAnimation::valueChanged, [=](const QVariant &value)
+        {
+            int fTransparencye = value.toInt();
+            m_pMoviePicWidget->setFixedHeight(m_pAnimationOpacity->endValue().toInt() - fTransparencye);
+            m_pStackedWidget->show();
+        });
+
+        connect(m_pAnimationOpacity, &QPropertyAnimation::finished, [=]()
+        {
+            m_pMoviePicWidget->Stop();
+            m_pMoviePicWidget->hide();
+            m_pStackedWidget->show();
+            m_eMainTabTitle = TABTITLE_MAIN;
+            ChangePage();
+            AppInit::Instance()->StartWatchMouse();
+        });
+
+        m_pAnimationOpacity->start();
+    });
 }
 
 void CarCompass::mouseReleaseEvent(QMouseEvent *event)

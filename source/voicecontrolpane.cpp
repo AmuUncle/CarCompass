@@ -246,6 +246,11 @@ void VoiceControlPane::timerEvent(QTimerEvent *event)
     }
 }
 
+void VoiceControlPane::OnBtnCfgClicked()
+{
+    emit SignalSysCfg();
+}
+
 void VoiceControlPane::CreateAllChildWnd()
 {
 #define NEW_OBJECT(pObj, TYPE) \
@@ -285,7 +290,7 @@ void VoiceControlPane::InitCtrl()
 
 void VoiceControlPane::InitSolts()
 {
-
+    connect(m_btnCfg, &QPushButton::clicked, this, &VoiceControlPane::OnBtnCfgClicked);
 }
 
 void VoiceControlPane::Relayout()

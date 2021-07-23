@@ -8,7 +8,6 @@ IncomingCall::IncomingCall(QWidget *parent) :
     ui->setupUi(this);
 
     GLOBAL_FUNC_RUN
-
 }
 
 IncomingCall::~IncomingCall()

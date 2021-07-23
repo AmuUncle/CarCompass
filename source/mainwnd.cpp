@@ -61,6 +61,11 @@ void MainWnd::InitSolts()
     {
         emit SignalPageChange((EMainTabTitle)value);
     });
+
+    connect(m_pVoiceControlPane, &VoiceControlPane::SignalSysCfg, [=]()
+    {
+        emit SignalPageChange(TABTITLE_SYSCFG);
+    });
 }
 
 void MainWnd::Relayout()
