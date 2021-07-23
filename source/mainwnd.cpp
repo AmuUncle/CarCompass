@@ -49,7 +49,7 @@ void MainWnd::InitSolts()
     pSignalMapperPushed->setMapping(m_btn1, TABTITLE_CALL);
     pSignalMapperPushed->setMapping(m_btn2, TABTITLE_MUSIC);
     pSignalMapperPushed->setMapping(m_btn3, TABTITLE_COMPASS);
-    pSignalMapperPushed->setMapping(m_btn4, TABTITLE_WEDRIVE);
+    pSignalMapperPushed->setMapping(m_btn4, TABTITLE_MEETING);
 
     QList<BaseButton *> listBtns = findChildren<BaseButton *>();
     foreach (BaseButton *btn, listBtns)
