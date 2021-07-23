@@ -22,7 +22,10 @@ private:
     GLOBAL_FUNC
 
 private slots:
+    void OnBtnCfgClicked();
 
+signals:
+    void SignalSysCfg();
 
 private:
     QChar m_iconCode;

@@ -22,8 +22,26 @@
 
 # 🗺️软件截图
 
-### 主界面
-![导航](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/main.gif)
+### 开机动画
+![开机动画](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/1.gif)
+
+### 语音输入
+![语音输入](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/2.gif)
+
+### 下拉菜单
+![下拉菜单](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/3.gif)
+
+### 电话
+![电话](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/4.gif)
+
+### 音乐
+![音乐](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/5.gif)
+
+### 系统设置
+![系统设置](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/6.gif)
+
+### 屏幕保护
+![屏幕保护](https://gitee.com/hudejie/CarCompass/raw/master/screenshot/7.gif)
 
 
 # 📝参考网址

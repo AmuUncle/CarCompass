@@ -144,24 +144,25 @@ background:none;
 
 QListView
 {
-    background:#E6E8EB;
+    background:#24272C;
     border-style:none;
+	color:#FFFFFF;
 }
 
 QListView::item:selected
 {
-    color:#000000;
-    background:#C3C5C7;
+    color:#FFFFFF;
+    background:#2B2E33;
 }
 
 QListView::item:hover
 {
-    background:#D7D9DB;
+    background:#2B2E33;
 }
 
 QListView::item
 {
-    border-bottom: 1px solid #DADCDF;
+    border-bottom: 1px solid #33363B;
 }
 
 QSlider::groove:horizontal 
@@ -370,10 +371,16 @@ QPushButton[Answer="true"]:disabled
     color:#1FBE09;
 }
 
+QWidget[form="SystemCfg"] QLabel[cfgname="true"]
+{
+    color:#D7D7D7;
+	font-size:16px;
+}
 
-
-
-
+QWidget[form="SystemCfg"] QLabel[cfgicon="true"]
+{
+	font-weight: normal;
+}
 
 
 

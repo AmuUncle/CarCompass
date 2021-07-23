@@ -2,7 +2,9 @@
 #define APPINIT_H
 
 #include <QObject>
+#include <QTime>
 
+class QTimer;
 class AppInit : public QObject
 {
     Q_OBJECT
@@ -11,6 +13,8 @@ public:
     explicit AppInit(QObject *parent = 0);    
 
     void start();
+    void StartWatchMouse();
+    void StopWatchMouse();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *evt);
@@ -18,7 +22,11 @@ protected:
 private:
     static AppInit *self;
 
+    QTimer *m_pMouseWatcher;
+    QTime m_timeMouseTrigger;
+
 signals:
+    void SignalNoUserOperation();
 
 public slots:
 };

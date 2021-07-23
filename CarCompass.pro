@@ -24,7 +24,9 @@ SOURCES += source/main.cpp\
     source/mainwnd.cpp \
     source/incomingcall.cpp \
     source/musicpane.cpp \
-    source/compasspane.cpp
+    source/compasspane.cpp \
+    source/standbypane.cpp \
+    source/systemcfg.cpp
 
 HEADERS  += include/carcompass.h \
     include/basebutton.h \
@@ -35,13 +37,16 @@ HEADERS  += include/carcompass.h \
     include/mainwnd.h \
     include/incomingcall.h \
     include/musicpane.h \
-    include/compasspane.h
+    include/compasspane.h \
+    include/standbypane.h \
+    include/systemcfg.h
 
 FORMS += \
     ui/dropdownbox.ui \
     ui/incomingcall.ui \
     ui/musicpane.ui \
-    ui/compasspane.ui
+    ui/compasspane.ui \
+    ui/qtsystemcfg.ui
 
 RESOURCES += \
     res/res.qrc

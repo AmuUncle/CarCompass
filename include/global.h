@@ -35,8 +35,9 @@ enum EMainTabTitle
     TABTITLE_CALL = 2,      // 日程
     TABTITLE_MUSIC = 3,       // 工作台
     TABTITLE_COMPASS = 4,      // 微文档
-    TABTITLE_WEDRIVE = 5,      // 微盘
-    TABTITLE_MEETING = 6,      // 会议
+    TABTITLE_STANDBY = 5,      // 微盘
+    TABTITLE_SYSCFG = 6,      // 会议
+    TABTITLE_MEETING = 7,      // 会议
 };
 
 #endif // GLOBAL_H

@@ -8,5 +8,6 @@
         <file>shadow.png</file>
         <file>cd.png</file>
         <file>compass.png</file>
+        <file>first.gif</file>
     </qresource>
 </RCC>
