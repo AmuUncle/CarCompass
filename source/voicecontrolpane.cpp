@@ -1,5 +1,10 @@
 ﻿#include "voicecontrolpane.h"
 
+
+#define DEFAULT_WIDTH  240.0
+#define DEFAULT_HEIGHT  400.0
+#define DEFAULT_VOICE_BTN_RADIUS_WIDTH  55.0
+
 VoiceControlPane::VoiceControlPane(QWidget *parent) : QWidget(parent)
 {
     m_nIconSize = 120;
@@ -25,16 +30,21 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing, true); // 抗锯齿和使用平滑转换算法
 
+    painter.scale(width() / 240.0, height() / 400.0);
+
+    QRect rcClient = QRect(0, 0, 240, 400);
+
     QColor colorBg("#24272C");
 
     painter.setPen(Qt::NoPen);//设置画笔颜色
     painter.setBrush(colorBg);//设置画刷颜色
-    painter.drawRect(rect());
+    painter.drawRect(rcClient);
+
 
     const int nOffset = 4;
     for (int i = 0; i < 4; i++)
     {
-        QRect rcShadow(rect());
+        QRect rcShadow(rcClient);
 
         if (0 == i)
         {
@@ -94,7 +104,7 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
     if (QPropertyAnimation::Running == m_pAnimationOpacity->state())
     {
         painter.save();
-        QRect rcShadow(rect().center().x() - 15, rect().center().y() - 30, 30, 50);
+        QRect rcShadow(rcClient.center().x() - 15, rcClient.center().y() - 30, 30, 50);
         rcShadow.setTop(rcShadow.top() + rcShadow.height() * (1 - fRotationAngle * 0.6));
         painter.setPen(Qt::NoPen);//设置画笔颜色
         painter.setBrush(QColor("#368B16"));//设置画刷颜色
@@ -103,7 +113,7 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
     }
 
     painter.save();
-    QRect rcIcon(rect());
+    QRect rcIcon(rcClient);
     QFont font1 = ftIcon;
     font1.setBold(true);
     font1.setPixelSize(m_nIconSize);
@@ -113,7 +123,7 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
     painter.restore();
 
     painter.save();
-    QRect rcText(rect().marginsRemoved(QMargins(6, 6, 6, 6)));
+    QRect rcText(rcClient.marginsRemoved(QMargins(6, 6, 6, 6)));
     rcText.setBottom(rcText.top() + 80);
 
     font1.setBold(true);
@@ -182,7 +192,7 @@ void VoiceControlPane::paintEvent(QPaintEvent *event)
 
         int nOffset1 = 10 * fRotationAngle;
 
-        QPoint ptCenter = rect().center();
+        QPoint ptCenter = rcClient.center();
         QColor colorEllipse("#3B4345");
 
         painter.setPen(colorEllipse);//设置画笔颜色
@@ -246,6 +256,20 @@ void VoiceControlPane::timerEvent(QTimerEvent *event)
     }
 }
 
+void VoiceControlPane::resizeEvent(QResizeEvent *event)
+{
+    double fRadio = DEFAULT_WIDTH / DEFAULT_HEIGHT;
+
+    setFixedWidth(height() * fRadio);
+
+    int w = width();
+    int h = height();
+
+    fRadio = DEFAULT_VOICE_BTN_RADIUS_WIDTH / DEFAULT_HEIGHT;
+    int r = h * fRadio;
+    m_regVoice = QRegion(w / 2 - r, h / 2 - r, r * 2, r * 2, QRegion::Ellipse);
+}
+
 void VoiceControlPane::OnBtnCfgClicked()
 {
     emit SignalSysCfg();
@@ -261,12 +285,8 @@ void VoiceControlPane::CreateAllChildWnd()
 
 void VoiceControlPane::InitCtrl()
 {
-    setMaximumWidth(240);
     setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
     IconHelper::SetIcon(m_btnCfg, QChar(0xe606));
-
-    m_regVoice = QRegion(118 - 55, 200 - 55, 110, 110, QRegion::Ellipse);
-
 
     this->setProperty("RotationAngle", 1.0);
     m_pAnimationOpacity = new QPropertyAnimation(this, "RotationAngle");

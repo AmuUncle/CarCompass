@@ -17,6 +17,7 @@ private:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void timerEvent(QTimerEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     GLOBAL_FUNC

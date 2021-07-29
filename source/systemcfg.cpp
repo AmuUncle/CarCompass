@@ -62,7 +62,7 @@ void SystemCfg::InitCtrl()
         ui->listWidget->setItemWidget(item, pItemWidget);
     }
 
-    for(int i = ui->stackedWidget->count(); i >= 0; i--)
+    for(int i = ui->stackedWidget->count() - 1; i >= 0; i--)
     {
          QWidget *widget = ui->stackedWidget->widget(i);
          ui->stackedWidget->removeWidget(widget);

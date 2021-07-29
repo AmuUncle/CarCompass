@@ -17,6 +17,10 @@ void BaseButton::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing, true); // 抗锯齿和使用平滑转换算法
 
+    painter.scale(width() / 240.0, height() / 200.0);
+
+    QRect rcClient = QRect(0, 0, 240, 200);
+
     QColor colorBg("#24272C");
 
     if (m_bEnter)
@@ -24,12 +28,12 @@ void BaseButton::paintEvent(QPaintEvent *event)
 
     painter.setPen(Qt::NoPen);//设置画笔颜色
     painter.setBrush(colorBg);//设置画刷颜色
-    painter.drawRect(rect());
+    painter.drawRect(rcClient);
 
     const int nOffset = 4;
     for (int i = 0; i < 4; i++)
     {
-        QRect rcShadow(rect());
+        QRect rcShadow(rcClient);
 
         if (0 == i)
         {
@@ -86,7 +90,7 @@ void BaseButton::paintEvent(QPaintEvent *event)
     if (m_bShowShadow)
     {
         painter.save();
-        QRect rcShadow(rect());
+        QRect rcShadow(rcClient);
         rcShadow.setTop(rcShadow.center().y() + (m_nIconSize / 2 - 15));
         rcShadow.setBottom(rcShadow.top() + 20);
 
@@ -98,8 +102,8 @@ void BaseButton::paintEvent(QPaintEvent *event)
     }
 
     painter.save();
-    QRect rcIcon(rect());
-    rcIcon.setBottom(rcIcon.bottom() - (height() / 3 ));
+    QRect rcIcon(rcClient);
+    rcIcon.setBottom(rcIcon.bottom() - (rcClient.height() / 3 ));
     QFont font1 = ftIcon;
     font1.setBold(true);
     font1.setPixelSize(m_nIconSize);
@@ -109,8 +113,8 @@ void BaseButton::paintEvent(QPaintEvent *event)
     painter.restore();
 
     painter.save();
-    QRect rcText(rect());
-    rcText.setBottom(rcText.bottom() - (height() / 7));
+    QRect rcText(rcClient);
+    rcText.setBottom(rcText.bottom() - (rcClient.height() / 7));
     QFont font2 = painter.font();
     font2.setBold(true);
     font2.setPixelSize(m_nTextSize);

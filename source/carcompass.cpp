@@ -35,7 +35,7 @@ CarCompass::CarCompass(QWidget *parent)
     m_eMainTabTitle = TABTITLE_MAIN;
 
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint);
-    setFixedSize(720, 400);
+    setFixedSize(800, 480);
     setProperty("canMove", "true");
     setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
     setProperty("form", "mainwnd");
